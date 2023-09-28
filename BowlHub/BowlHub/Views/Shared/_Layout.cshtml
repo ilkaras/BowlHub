@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>@ViewData["Title"] - BowlHub</title>
+    <link rel="stylesheet" type="text/css" href="~/css/reset.css" asp-append-version="true">
+    <link rel="stylesheet" type="text/css" href="~/css/global.css" asp-append-version="true">
+    @await RenderSectionAsync("Imports", required: false)
+</head>
+<body>
+<header>
+    <div class="svg-logo"></div>
+    @await RenderSectionAsync("HeaderControls", required: false)
+    <input type="button" class="button" value="Log in">
+</header>
+<main role="main">
+    @RenderBody()
+</main>
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

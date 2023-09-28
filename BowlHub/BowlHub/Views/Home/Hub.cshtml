@@ -1,0 +1,33 @@
+﻿@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Hub"; 
+}
+@section Imports
+{
+    <link rel="stylesheet" type="text/css" href="~/css/hub.css" asp-append-version="true">
+}
+
+<h1>Select a place</h1>
+
+<div class="cards-container">
+    <section class="card">
+        <div class="card-header">
+            <h3>Header</h3>
+        </div>
+        <div class="card-body">
+            <div class="card-field">
+                <h3 class="card-field-name">City:</h3>
+                <span class="card-field-content">Kropyvnytskyi</span>
+            </div>
+            <div class="card-field">
+                <h3 class="card-field-name">Address:</h3>
+                <span class="card-field-content">Kropyvnytskogo 7</span>
+            </div>
+            <div class="card-field">
+                <h3 class="card-field-name">Phone:</h3>
+                <span class="card-field-content">+380 (66) 666-66-66</span>
+            </div>
+        </div>
+        <input type="button" class="card-button" value="Select">
+    </section>
+</div>

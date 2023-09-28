@@ -1,0 +1,78 @@
+﻿main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 84px);
+    border-radius: 10px;
+    margin: 8px 8px 0;
+    background-color: transparent;
+}
+
+h1 {
+    margin-bottom: 20px;
+    font-family: "Etna", sans-serif;
+    color: #34495E;
+}
+
+.cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    width: 100%;
+}
+
+.card {
+    width: 260px;
+    height: 320px;
+    background-color: #EAEDED;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px 10px;
+}
+
+.card-header {
+    width: 100%;
+    height: 35px;
+    border-radius: 8px;
+    background-color: #34495E;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Etna", sans-serif;
+    color: #EAEDED;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin: 10px 0;
+    row-gap: 20px;
+}
+
+.card-button {
+    width: 100%;
+    font-family: "Etna", sans-serif;
+    font-size: 17px;
+    padding: 3px 0 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--button-color-1);
+    color: #FFFFFF;
+    cursor: pointer;
+    transition-duration: 0.2s;
+    align-self: center;
+}
+
+.card-button:hover {
+    background-color: #597d9f;
+}
+
+.card-field-content{
+    border-bottom: 2px solid black;
+    padding-bottom: 2px;
+}

@@ -1,4 +1,6 @@
+using BowlHub.BLL.Extentions;
 using BowlHub.DAL.Extensions;
+using BowlHub.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,8 +8,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 IConfiguration configuration = builder.Configuration;
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 builder.Services.Inject(configuration);
+builder.Services.AddServiceInjection();
+builder.Services.AddMapper();
 
 var app = builder.Build();
 

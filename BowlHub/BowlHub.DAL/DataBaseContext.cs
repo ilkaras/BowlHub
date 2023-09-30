@@ -1,4 +1,5 @@
-﻿using BowlHub.DAL.EntitiConfigurations;
+﻿using BowlHub.DAL.DbData;
+using BowlHub.DAL.EntitiConfigurations;
 using BowlHub.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -27,14 +28,6 @@ public class DataBaseContext : DbContext
         modelBuilder.ApplyConfiguration(new ReservationConfiguration());
         modelBuilder.ApplyConfiguration(new UserConfiguraton());
         base.OnModelCreating(modelBuilder);
-    }
-    private void Register_places(ModelBuilder builder)
-    {
-        var configurationData = _configuration["Start_db:hub_places"];
-        
-        var places = JsonConvert.DeserializeObject<List<PlaceEntity>>(configurationData!);
-
-        builder.Entity<PlaceEntity>()
-            .HasData(places!);
+        DbPlacesGenerator.Generate(modelBuilder);
     }
 }

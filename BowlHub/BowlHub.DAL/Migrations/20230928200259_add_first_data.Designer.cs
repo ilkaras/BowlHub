@@ -3,6 +3,7 @@ using System;
 using BowlHub.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BowlHub.DAL.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    partial class DataBaseContextModelSnapshot : ModelSnapshot
+    [Migration("20230928200259_add_first_data")]
+    partial class add_first_data
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -82,23 +85,7 @@ namespace BowlHub.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("60dc9058-55d3-4a55-9594-a9684a503c5b"),
-                            AdminPhone = "+380 (66) 666-66-66",
-                            Adress = "Kropyvnytskogo 7",
-                            City = "Kropyvnytskyi",
-                            Name = "Sharaga"
-                        },
-                        new
-                        {
-                            Id = new Guid("aaa85140-61ee-4e07-9ba8-32733a38442d"),
-                            AdminPhone = "+380 (66) 666-66-66",
-                            Adress = "Kropyvnytskogo 7",
-                            City = "Kropyvnytskyi",
-                            Name = "Sharaga"
-                        },
-                        new
-                        {
-                            Id = new Guid("9a946ef3-1d89-4764-9e81-43813bb422c1"),
+                            Id = new Guid("65641779-355f-40e4-a1cc-f1e74b3379b0"),
                             AdminPhone = "+380 (66) 666-66-66",
                             Adress = "Kropyvnytskogo 7",
                             City = "Kropyvnytskyi",

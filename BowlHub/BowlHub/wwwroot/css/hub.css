@@ -12,7 +12,7 @@
 h1 {
     margin-bottom: 20px;
     font-family: "Etna", sans-serif;
-    color: #34495E;
+    color: var(--main-color-1);
 }
 
 .cards-container {
@@ -26,7 +26,7 @@ h1 {
 .card {
     width: 260px;
     height: 320px;
-    background-color: #EAEDED;
+    background-color: var(--main-color-2);
     border-radius: 12px;
     display: flex;
     flex-direction: column;
@@ -38,12 +38,12 @@ h1 {
     width: 100%;
     height: 35px;
     border-radius: 8px;
-    background-color: #34495E;
+    background-color: var(--main-color-1);
     display: flex;
     align-items: center;
     justify-content: center;
     font-family: "Etna", sans-serif;
-    color: #EAEDED;
+    color: var(--main-color-2);
 }
 
 .card-body {
@@ -69,7 +69,7 @@ h1 {
 }
 
 .card-button:hover {
-    background-color: #597d9f;
+    background-color: var(--button-hover-1);
 }
 
 .card-field-content{

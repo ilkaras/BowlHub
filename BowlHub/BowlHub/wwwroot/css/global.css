@@ -6,56 +6,7 @@
 :root {
     --button-color-1: #476685;
     --logo-color-1: #EAEDED;
-}
-
-body {
-    margin: 0;
-    font-family: 'Etna', sans-serif;
-    height: 100vh;
-    background: linear-gradient(135deg, #b2cfdf, #ECF0F1);
-}
-
-header {
-    padding: 4px 20px;
-    height: 60px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #34495E;
-    border-radius: 10px;
-    margin: 8px 8px 0;
-    z-index: 1;
-}
-
-.svg-logo {
-    height: 52px;
-    width: 52px;
-    background-color: var(--logo-color-1);
-    -webkit-mask-image: url("../images/BowlHub.svg");
-    -webkit-mask-size: 60px 60px;
-    -webkit-mask-position: center;
-    -webkit-mask-repeat: no-repeat;
-}
-
-main {
-    height: calc(100vh - 84px);
-    background-color: transparent;
-    border-radius: 10px;
-    margin: 8px 8px 0;
-}
-
-.button {
-    font-family: "Etna", sans-serif;
-    font-size: 17px;
-    padding: 3px 60px 7px;
-    border: none;
-    border-radius: 5px;
-    background-color: var(--button-color-1);
-    color: #FFFFFF;
-    cursor: pointer;
-    transition-duration: 0.2s;
-}
-
-.button:hover {
-    background-color: #597d9f;
+    --main-color-1: #34495E;
+    --main-color-2: #EAEDED;
+    --button-hover-1: #597d9f;
 }

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BowlHub.Controllers;
 
 [ApiController]
-public class PlaceController : ControllerBase
+public class PlaceController : Controller
 {
     private readonly IPlaceService _placeService;
     private readonly IMapper _mapper;
@@ -17,10 +17,10 @@ public class PlaceController : ControllerBase
         _placeService = placeService;
     }
     
-    [HttpGet("getAllPlaces")]
+    [HttpGet("places")]
     public async Task<IActionResult> GetAllPlaces()
     {
         var result = _mapper.Map<List<PlaceDto>>(await _placeService.GetAllPlaces());
-        return Ok(Results.Json(result));
+        return View("../Pages/Hub", result);
     }
 }

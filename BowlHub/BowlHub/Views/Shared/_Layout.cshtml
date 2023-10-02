@@ -9,9 +9,11 @@
 </head>
 <body>
 <header>
-    <div class="svg-logo"></div>
+    <a href="/"><div class="svg-logo"></div></a>
     @await RenderSectionAsync("HeaderControls", required: false)
-    <input type="button" class="button" value="Log in">
+    <div class="header-btns">
+        @await RenderSectionAsync("HeaderBtns", required: false)
+    </div>
 </header>
 <main role="main">
     @RenderBody()

@@ -9,7 +9,7 @@ public class BoardConfiguration : IEntityTypeConfiguration<BoardEntity>
     public void Configure(EntityTypeBuilder<BoardEntity> builder)
     {
         builder.HasIndex(x => x.Id);
-        builder.HasIndex(x => x.PlaceId);
+        builder.Property(x => x.PlaceId);
         builder.Property(x => x.ColumnCount);
         builder.Property(x => x.StartTime);
         builder.Property(x => x.EndTime);

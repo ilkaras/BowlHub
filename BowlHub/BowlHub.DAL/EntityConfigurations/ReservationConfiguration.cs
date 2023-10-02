@@ -9,7 +9,7 @@ public class ReservationConfiguration : IEntityTypeConfiguration<ReservationEnti
     public void Configure(EntityTypeBuilder<ReservationEntity> builder)
     {
         builder.HasIndex(x => x.Id);
-        builder.HasIndex(x => x.UserId);
+        builder.Property(x => x.UserId);
         builder.Property(x => x.BoardId);
         builder.Property(x => x.ColumnNum);
         builder.Property(x => x.FromReservation);

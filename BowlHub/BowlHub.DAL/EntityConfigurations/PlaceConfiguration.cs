@@ -9,7 +9,7 @@ public class PlaceConfiguration : IEntityTypeConfiguration<PlaceEntity>
     public void Configure(EntityTypeBuilder<PlaceEntity> builder)
     {
         builder.HasIndex(x => x.Id);
-        builder.HasIndex(x => x.Name);
+        builder.Property(x => x.Name);
         builder.Property(x => x.City);
         builder.Property(x => x.Adress);
         builder.Property(x => x.AdminPhone);

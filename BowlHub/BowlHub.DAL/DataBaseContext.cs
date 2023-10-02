@@ -29,5 +29,6 @@ public class DataBaseContext : DbContext
         modelBuilder.ApplyConfiguration(new UserConfiguraton());
         base.OnModelCreating(modelBuilder);
         DbPlacesGenerator.Generate(modelBuilder);
+        DbBoardsGenerator.Generate(modelBuilder);
     }
 }

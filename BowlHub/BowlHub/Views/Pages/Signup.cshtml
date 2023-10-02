@@ -1,0 +1,34 @@
+﻿@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Sign up"; 
+}
+
+@section Imports
+{
+    <link rel="stylesheet" type="text/css" href="~/css/auth.css" asp-append-version="true">
+}
+
+@section HeaderBtns
+{
+    <a href="/places">
+        <input type="button" class="button" value="Back to places">
+    </a>
+}
+
+<div class="auth-container">
+    <h1 class="form-header">Sign up</h1>
+    <div class="wrapper">
+    	<form class="auth-form" method="post" action="userSignup" autocomplete="off">
+    		<input type="email" name="email" placeholder="email"/>
+    		<input type="text" name="name" placeholder="name"/>
+    		<input type="password"name="password" placeholder="password"/>
+    		<button type="submit">&#xf0da;</button>
+    		<p>already have an account? <a href="/auth/login">log in</a></p>
+    	</form>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/js/auth.js" asp-append-version="true"></script>
+}

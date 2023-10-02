@@ -1,0 +1,49 @@
+﻿@model List<BowlHub.DTOs.PlaceDto>
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Hub"; 
+}
+@section Imports
+{
+    <link rel="stylesheet" type="text/css" href="~/css/hub.css" asp-append-version="true">
+}
+
+@section HeaderBtns
+{
+    <a href="/auth/login">
+        <input type="button" class="button" value="Log in"/>
+    </a>
+    <a href="/auth/signup">
+        <input type="button" class="button" value="Sign in"/>
+    </a>
+}
+
+<h1>Select a place</h1>
+
+<div class="cards-container">
+    @foreach (var place in Model)
+    {
+        <section class="card">
+            <div class="card-header">
+                <h3>@place.Name</h3>
+            </div>
+            <div class="card-body">
+                <div class="card-field">
+                    <h3 class="card-field-name">City:</h3>
+                    <span class="card-field-content">@place.City</span>
+                </div>
+                <div class="card-field">
+                    <h3 class="card-field-name">Location:</h3>
+                    <span class="card-field-content">@place.Address</span>
+                </div>
+                <div class="card-field">
+                    <h3 class="card-field-name">Phone:</h3>
+                    <span class="card-field-content">@place.AdminPhone</span>
+                </div>
+            </div>
+            <a href="/board?id=@place.Id">
+                <input type="button" class="card-button" value="Select">
+            </a>
+        </section>
+    }
+</div>

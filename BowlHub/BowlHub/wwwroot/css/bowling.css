@@ -18,9 +18,49 @@ main{
 }
 
 .main-content{
-    border-radius: 5px;
+    border-radius: 8px;
     width: 100%;
     height: 100%;
     background-color: var(--main-color-2);
-    
+    padding: 10px;
+}
+
+.lines-container{
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+    overflow-y: scroll;
+}
+
+.bowling-line{
+    width: 100%;
+    height: 45px;
+    background-color: var(--button-hover-1);
+    color: var(--main-color-2);
+    border-radius: 8px;
+    padding: 0 40px;
+    font-size: 24px;
+    position: relative;
+    cursor:pointer;
+}
+
+.bowling-line:before{
+    content:"";
+    width: 25px;
+    height: 100%;
+    border-radius: 8px;
+    background-color: var(--main-color-1);
+    position: absolute;
+    left: 0;
+    top: 0;
+    transition-duration: 0.4s;
+}
+
+.bowling-line:hover:before{
+    width: 100%;
+    opacity: 0.5;
+}
+
+.bowling-line:active:before{
+    opacity: 0;
 }

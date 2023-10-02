@@ -1,11 +1,15 @@
-﻿@font-face {
+﻿@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700);
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css');
+
+@font-face {
     font-family: "Etna";
     src: url("../fonts/ETNA.otf") format("opentype");
 }
 
 :root {
+    --white-color: rgb(255, 255, 255);
     --button-color-1: #476685;
-    --logo-color-1: #EAEDED;
+    --logo-color-1: var(--main-color-2);
     --main-color-1: #34495E;
     --main-color-2: #EAEDED;
     --button-hover-1: #597d9f;

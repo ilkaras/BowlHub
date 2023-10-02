@@ -12,17 +12,16 @@ main{
     height: 100%;
     border-radius: 8px;
     padding: 10px 30px;
-    filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
 }
 
 .block:nth-child(1){
-    background-color: #ece1b5;
+    background: linear-gradient(135deg, #fff0b4, #f6edd1);
 }
 .block:nth-child(2){
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #ffffff;
+    background-color: #f1f1f1;
 }
 
 h1 {
@@ -57,7 +56,7 @@ p.description{
     grid-column-gap: 8px;
 }
 
-.buttons input[type="button"] {
+input[type="button"] {
     border: 0;
     border-radius: 5px;
     background-color: #2a78ea;
@@ -68,6 +67,6 @@ p.description{
     cursor:pointer;
 }
 
-.buttons input[type="button"]:hover{
+input[type="button"]:hover{
     background-color: #448aee;
 }

@@ -1,0 +1,40 @@
+﻿@model BowlHub.DTOs.BoardDto 
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Board"; 
+}
+
+@section Imports
+{
+    <link rel="stylesheet" type="text/css" href="~/css/bowling.css" asp-append-version="true">
+}
+
+@section HeaderControls
+{
+    <div class="header-controls">
+        <input type="date" class="date-picker">
+    </div>
+}
+
+@section HeaderBtns
+{
+    <a href="/places">
+        <input type="button" class="button" value="Back to places">
+    </a>
+    <a href="/auth/login">
+        <input type="button" class="button" value="Log in"/>
+    </a>
+    <a href="/auth/signup">
+        <input type="button" class="button" value="Sign in"/>
+    </a>
+}
+
+<div class="main-content lines-container">
+    @for (var i = 1; i <= Model.ColumnCount; i++)
+    {
+        <div class="bowling-line disable-selection" data-line-id="@i">Line @i</div>
+    }
+</div>
+<div class="main-content">
+   
+</div>

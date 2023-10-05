@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Data.Entity.Core;
+using AutoMapper;
 using BowlHub.BLL.Models;
 using BowlHub.BLL.Services.Interfaces;
 using BowlHub.DTOs;
@@ -45,7 +46,19 @@ public class AuthController : Controller
     [HttpPost("userLogin")]
     public async Task<IActionResult> UserLogin([FromForm]UserLoginDto user)
     {
-        var result = await _authService.Authorize(user.Email, user.Password);
-        return Ok(result);
+        try
+        {
+            var token = await _authService.Authorize(user.Email, user.Password);
+            HttpContext.Session.SetString("accessToken", token!);
+            return Redirect("/places");
+        }
+        catch (ObjectNotFoundException e)
+        {
+            return new NotFoundResult();
+        }
+        catch (ArgumentException e)
+        {
+            return new UnauthorizedObjectResult(e.Message);
+        }
     }
 }

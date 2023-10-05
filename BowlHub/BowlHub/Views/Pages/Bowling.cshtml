@@ -7,13 +7,7 @@
 @section Imports
 {
     <link rel="stylesheet" type="text/css" href="~/css/bowling.css" asp-append-version="true">
-}
-
-@section HeaderControls
-{
-    <div class="header-controls">
-        <input type="date" class="date-picker">
-    </div>
+    <script src="~/js/board.js" asp-append-version="true"></script>
 }
 
 @section HeaderBtns
@@ -30,11 +24,52 @@
 }
 
 <div class="main-content lines-container">
+    <div class="lines-control">
+        Bowling lines
+    </div>
     @for (var i = 1; i <= Model.ColumnCount; i++)
     {
-        <div class="bowling-line disable-selection" data-line-id="@i">Line @i</div>
+        <div class="bowling-line disable-selection" onclick="getTimeInfo(@i)">Line @i</div>
     }
 </div>
-<div class="main-content">
-   
+<div class="main-content time-info-container">
+    <div class="time-info-header">
+        Free | Busy
+        <br>
+        reservation time
+    </div>
+    <div class="bowling-line free-time" data-from="10:00" data-to="12:00">
+        <p>From: <span>10:00</span></p>
+        <p>To: <span>12:00</span></p>
+    </div>
+    <div class="bowling-line busy-time" data-from="12:00" data-to="13:00">
+        <p>From: <span>12:00</span></p>
+        <p>To: <span>13:00</span></p>
+    </div>
 </div>
+<div class="main-content">
+    <div class="reservation-header">
+        <div class="time-controller">
+            <input id="start-time-input" type="range" min="@Model.StartTime" max="@Model.EndTime" step="15"
+                   oninput="updateTime(this.value, 'start-time'); updateDurationTime(this.value, @Model.EndTime)" value="@Model.StartTime">
+            <p>Start: <span id="start-time"></span></p>
+            <input id="duration-time-input" type="range" min="0" max="@(Model.EndTime-Model.StartTime)" step="15"
+                   oninput="updateTime(this.value, 'duration-time'); updateStartTime(this.value, @Model.EndTime)" value="60">
+            <p>Duration: <span id="duration-time">01:00</span></p>
+        </div>
+        <div class="time-controller" style="display: flex; justify-content: right">
+            <input id="reserv-date-input" type="date" class="date-picker" value="">
+        </div>
+    </div>
+    <input type="button" value="Reservation" onclick="addNewReservation()">
+</div>
+
+@section Scripts
+{
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            updateTime(@Model.StartTime, 'start-time');
+            document.body.querySelector(".date-picker").value = new Date().toISOString().split('T')[0]
+        });
+    </script>
+}

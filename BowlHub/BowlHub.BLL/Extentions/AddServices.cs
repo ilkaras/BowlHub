@@ -12,6 +12,7 @@ public static class AddServices
         services.AddScoped<IBoardService, BoardService>();
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IAuthService, AuthService>();
+        services.AddScoped<IReservationService, ReservationService>();
         
         services.AddAutoMapper(typeof(AppMappingProfile));
     }

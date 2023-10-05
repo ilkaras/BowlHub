@@ -1,7 +1,12 @@
-﻿using AutoMapper;
+﻿using System.Data.Entity.Core;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using AutoMapper;
+using BowlHub.BLL.Extentions;
 using BowlHub.BLL.Models;
 using BowlHub.BLL.Services.Interfaces;
 using BowlHub.DAL.Repositories.Interfaces;
+using Microsoft.IdentityModel.Tokens;
 
 namespace BowlHub.BLL.Services.Classes;
 
@@ -16,19 +21,37 @@ public class AuthService : IAuthService
         _userRepository = repository;
     }
     
+    public string GenerateToken(UserModel user)
+    {
+        var token = new JwtSecurityToken(
+            issuer: AuthOptions.Issuer,
+            audience: AuthOptions.Audience,
+            claims: new List<Claim>
+            {
+                new Claim("adminId", user.Id.ToString()),
+                new Claim("admin", user.Email),
+                new Claim(JwtRegisteredClaimNames.Sub, user.Email),
+            },
+            expires: DateTime.UtcNow.Add(TimeSpan.FromMinutes(120)),
+            signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256)
+        );
+            
+        return new JwtSecurityTokenHandler().WriteToken(token);
+    }
+    
     public async Task<string?> Authorize(string email, string password)
     {
         var getUser = _mapper.Map<UserModel>(await _userRepository.GetUserByEmail(email));
         if (getUser == null)
         {
-            return string.Empty;
+            throw new ObjectNotFoundException($"User with email address: {email}, did not found.");
         }
 
         if (await _userRepository.CheckUser(email, password))
         {
-            // TODO generate JWT here;
+            return GenerateToken(getUser);
         }
-        
-        return string.Empty;
+
+        throw new ArgumentException($"Password is wrong.");
     }
 }

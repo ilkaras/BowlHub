@@ -16,7 +16,6 @@ public class PlaceService : IPlaceService
         _placeRepository = repository;
     }
 
-    
     public async Task<List<PlaceModel>> GetAllPlaces()
     {
         return _mapper.Map<List<PlaceModel>>(_placeRepository.GetAll());

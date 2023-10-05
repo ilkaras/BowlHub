@@ -25,7 +25,7 @@ public class UserService : IUserService
     public async Task<UserModel> AddNewUser(UserModel user)
     {
         var result = await GetUserByEmail(user.Email);
-        if (result != null)
+        if (result == null)
         {
             return _mapper.Map<UserModel>(await _userRepository.AddAsync(_mapper.Map<UserEntity>(user)));
         }

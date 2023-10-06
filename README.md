@@ -39,8 +39,11 @@ Ensure you have the following installed on your system:
 
 ### 1. Clone the Repository
 
-```bash
+bash
+```
 git clone https://github.com/your-username/your-repository-name.git
+```
+```
 cd your-repository-name
 ```
 ### 2. Database Setup
@@ -54,6 +57,8 @@ cd your-repository-name
 ### 3. Dependency Installation and Database Migration
 ```
 dotnet restore
+```
+```
 dotnet ef database update
 ```
 ### 4. Run the Application

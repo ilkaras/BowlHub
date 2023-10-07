@@ -13,13 +13,15 @@ public class BoardController : Controller
 {
     private readonly IBoardService _boardService;
     private readonly IReservationService _reservationService;
+    private readonly IEmailSenderService _emailSenderService;
     private readonly IMapper _mapper;
 
-    public BoardController(IMapper mapper, IBoardService boardService, IReservationService reservationService)
+    public BoardController(IMapper mapper, IBoardService boardService, IReservationService reservationService, IEmailSenderService emailSenderService)
     {
         _mapper = mapper;
         _boardService = boardService;
         _reservationService = reservationService;
+        _emailSenderService = emailSenderService;
     }
     
     [HttpGet("board")]
@@ -35,20 +37,25 @@ public class BoardController : Controller
     }
 
     [HttpGet("getTimeInfo")]
-    public async Task<IActionResult> GetTimeInfo(Guid id, int lineId)
+    public async Task<IActionResult> GetTimeInfo([FromQuery]GetInfoTimeDto infoTimeDto)
     {
-        return Ok(Results.Json(await _reservationService.GetTimeInfoByLineId(id, lineId)));
+        DateTime.TryParse(infoTimeDto.ReservationDate, out var date);
+        return Ok(Results.Json(await _reservationService.GetTimeInfoByLineId(infoTimeDto.Id, infoTimeDto.LineId, date)));
     }
 
-    [HttpPost("addNewReservation")] // TODO Authorize needed
-    public async Task<IActionResult> AddNewReservation([FromBody] ReservationDto reservationDto)
+    [HttpPost("addNewReservation"), Authorize]
+    public async Task<IActionResult> AddNewReservation([FromBody]ReservationDto reservationDto)
     {
-        var token = HttpContext.Session.GetString("accessToken");
+        var token = Request.Cookies["accessToken"];
         var handler = new JwtSecurityTokenHandler();
         var jwtSecurityToken = handler.ReadJwtToken(token);
         reservationDto.UserId = new Guid(jwtSecurityToken.Claims.First(claim => claim.Type == "adminId").Value);
 
         var result = await _reservationService.AddNewReservation(_mapper.Map<ReservationModel>(reservationDto));
+
+        var userEmail = jwtSecurityToken.Claims.First(claim => claim.Type == "sub").Value;
+        await _emailSenderService.SendEmailAsync(userEmail, "subject", "message");
+        
         return Ok(Results.Json(_mapper.Map<ReservationDto>(result)));
     }
 }

@@ -3,6 +3,7 @@ using AutoMapper;
 using BowlHub.BLL.Models;
 using BowlHub.BLL.Services.Interfaces;
 using BowlHub.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BowlHub.Controllers;
@@ -20,6 +21,12 @@ public class AuthController : Controller
         _userService = userService;
         _mapper = mapper;
         _authService = authService;
+    }
+
+    [HttpGet("checkAuth"), Authorize]
+    public IActionResult CheckAuth()
+    {
+        return Ok();
     }
     
     [HttpGet("{type}")]
@@ -39,8 +46,16 @@ public class AuthController : Controller
     [HttpPost("userSignup")]
     public async Task<IActionResult> UserSignup([FromForm]UserSignupDto user)
     {
-        await _userService.AddNewUser(_mapper.Map<UserModel>(user));
-        return View("../Pages/Login");
+        try
+        {
+            user.Email = user.Email.ToLower();
+            await _userService.AddNewUser(_mapper.Map<UserModel>(user));
+            return View("../Pages/Login");
+        }
+        catch (InvalidOperationException e)
+        {
+            return View("../Pages/Signup", e.Message);
+        }
     }
 
     [HttpPost("userLogin")]
@@ -48,17 +63,31 @@ public class AuthController : Controller
     {
         try
         {
+            user.Email = user.Email.ToLower();
             var token = await _authService.Authorize(user.Email, user.Password);
-            HttpContext.Session.SetString("accessToken", token!);
+            Response.Cookies.Append("accessToken", token!, new CookieOptions
+            {
+                HttpOnly = false,
+                Secure = true,
+                SameSite = SameSiteMode.Lax,
+                Expires = DateTime.UtcNow.AddHours(1)
+            });
             return Redirect("/places");
         }
         catch (ObjectNotFoundException e)
         {
-            return new NotFoundResult();
+            return View("../Pages/Login", e.Message);
         }
         catch (ArgumentException e)
         {
-            return new UnauthorizedObjectResult(e.Message);
+            return View("../Pages/Login", e.Message);
         }
+    }
+
+    [HttpGet("logout")]
+    public IActionResult UserLogout()
+    {
+        Response.Cookies.Delete("accessToken");
+        return Ok();
     }
 }

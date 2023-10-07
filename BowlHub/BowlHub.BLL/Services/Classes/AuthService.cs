@@ -44,7 +44,7 @@ public class AuthService : IAuthService
         var getUser = _mapper.Map<UserModel>(await _userRepository.GetUserByEmail(email));
         if (getUser == null)
         {
-            throw new ObjectNotFoundException($"User with email address: {email}, did not found.");
+            throw new ObjectNotFoundException("Email address not found.");
         }
 
         if (await _userRepository.CheckUser(email, password))
@@ -52,6 +52,6 @@ public class AuthService : IAuthService
             return GenerateToken(getUser);
         }
 
-        throw new ArgumentException($"Password is wrong.");
+        throw new ArgumentException("Password is wrong.");
     }
 }

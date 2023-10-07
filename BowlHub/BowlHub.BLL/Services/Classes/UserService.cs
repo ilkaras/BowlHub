@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Data.Entity.Core;
+using AutoMapper;
 using BowlHub.BLL.Models;
 using BowlHub.BLL.Services.Interfaces;
 using BowlHub.DAL.Entities;
@@ -29,6 +30,7 @@ public class UserService : IUserService
         {
             return _mapper.Map<UserModel>(await _userRepository.AddAsync(_mapper.Map<UserEntity>(user)));
         }
-        return _mapper.Map<UserModel>(result);
+
+        throw new InvalidOperationException("This email is already occupied by another user.");
     }
 }

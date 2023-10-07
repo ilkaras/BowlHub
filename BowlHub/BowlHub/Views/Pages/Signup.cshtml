@@ -1,4 +1,5 @@
-﻿@{
+﻿@model string?
+@{
     Layout = "_Layout";
     ViewData["Title"] = "Sign up"; 
 }
@@ -24,11 +25,10 @@
     		<input type="password"name="password" placeholder="password"/>
     		<button type="submit">&#xf0da;</button>
     		<p>already have an account? <a href="/auth/login">log in</a></p>
+            @if (Model != null)
+            {
+                <p class="form-error">@Model</p>
+            }
     	</form>
     </div>
 </div>
-
-@section Scripts
-{
-    <script src="~/js/auth.js" asp-append-version="true"></script>
-}

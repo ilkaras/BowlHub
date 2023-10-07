@@ -110,3 +110,10 @@ h1 {
 .auth-form p > a:hover {
     border-bottom: 1px solid;
 }
+
+.form-error {
+    color: red !important;
+    margin-top: 10px;
+    font-size: 16px !important;
+    font-weight: bold !important;
+}

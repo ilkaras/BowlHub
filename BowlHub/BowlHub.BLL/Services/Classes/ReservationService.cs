@@ -17,9 +17,9 @@ public class ReservationService : IReservationService
         _mapper = mapper;
     }
     
-    public async Task<Dictionary<string, List<int[]>>> GetTimeInfoByLineId(Guid id, int lineId)
+    public async Task<Dictionary<string, List<int[]>>> GetTimeInfoByLineId(Guid id, int lineId, DateTime date)
     {
-        return await _reservationRepository.GetTimeInfoByLineId(id, lineId);
+        return await _reservationRepository.GetTimeInfoByLineId(id, lineId, date);
     }
 
     public async Task<ReservationModel> AddNewReservation(ReservationModel reservationModel)

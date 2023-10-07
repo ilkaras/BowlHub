@@ -13,13 +13,12 @@ public class ReservationRepository : BaseRepository<ReservationEntity>, IReserva
         _boardDbSet = context.Set<BoardEntity>();
     }
 
-    public async Task<Dictionary<string, List<int[]>>> GetTimeInfoByLineId(Guid id, int lineId)
+    public async Task<Dictionary<string, List<int[]>>> GetTimeInfoByLineId(Guid id, int lineId, DateTime date)
     {
-        var today = DateTime.Today;
         var board = await _boardDbSet.FirstOrDefaultAsync(x => x.PlaceId == id);
         
         List<int[]> busyTimes = await DbSet
-            .Where(r => r.BoardId == board!.Id && r.ColumnNum == lineId)
+            .Where(r => r.BoardId == board!.Id && r.ColumnNum == lineId && r.DateReservation == date)
             .OrderBy(r => r.FromReservation)
             .Select(r => new int[] { r.FromReservation, r.TillReservation }) 
             .ToListAsync();

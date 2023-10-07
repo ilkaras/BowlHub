@@ -7,6 +7,7 @@
 @section Imports
 {
     <link rel="stylesheet" type="text/css" href="~/css/bowling.css" asp-append-version="true">
+    <script src="~/js/global.js" asp-append-version="true"></script>
     <script src="~/js/board.js" asp-append-version="true"></script>
 }
 
@@ -19,8 +20,9 @@
         <input type="button" class="button" value="Log in"/>
     </a>
     <a href="/auth/signup">
-        <input type="button" class="button" value="Sign in"/>
+        <input type="button" class="button" value="Sign up"/>
     </a>
+    <input id="logoutBtn" type="button" class="button" value="Log out" onclick="userLogout()"/>
 }
 
 <div class="main-content lines-container">
@@ -29,7 +31,7 @@
     </div>
     @for (var i = 1; i <= Model.ColumnCount; i++)
     {
-        <div class="bowling-line disable-selection" onclick="getTimeInfo(@i)">Line @i</div>
+        <div class="bowling-line disable-selection" data-line-id="@i" onclick="getTimeInfo(@i, this)">Line @i</div>
     }
 </div>
 <div class="main-content time-info-container">
@@ -38,14 +40,7 @@
         <br>
         reservation time
     </div>
-    <div class="bowling-line free-time" data-from="10:00" data-to="12:00">
-        <p>From: <span>10:00</span></p>
-        <p>To: <span>12:00</span></p>
-    </div>
-    <div class="bowling-line busy-time" data-from="12:00" data-to="13:00">
-        <p>From: <span>12:00</span></p>
-        <p>To: <span>13:00</span></p>
-    </div>
+    <div id="time-containers" class="disable-selection"></div>
 </div>
 <div class="main-content">
     <div class="reservation-header">
@@ -58,18 +53,28 @@
             <p>Duration: <span id="duration-time">01:00</span></p>
         </div>
         <div class="time-controller" style="display: flex; justify-content: right">
-            <input id="reserv-date-input" type="date" class="date-picker" value="">
+            <input id="reserv-date-input" type="date" class="date-picker" onchange="getTimeInfo(getLineId(), document.body.querySelector(`.bowling-line[data-line-id='${getLineId()}']`))">
         </div>
     </div>
-    <input type="button" value="Reservation" onclick="addNewReservation()">
+    <input type="button" value="Reservate" onclick="showPayMenu()">
+    <p class="error-container"></p>
 </div>
 
 @section Scripts
 {
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            updateTime(@Model.StartTime, 'start-time');
+            checkAuthorization()
             document.body.querySelector(".date-picker").value = new Date().toISOString().split('T')[0]
+            updateTime(@Model.StartTime, 'start-time');
+            
+            const url = document.location.href.split('#');
+            if (url.length === 1) {
+                document.location.href = `${url[0]}#1`;
+                getTimeInfo(1, document.body.querySelector(`.bowling-line[data-line-id="1"]`))
+                return
+            }
+            getTimeInfo(url[1], document.body.querySelector(`.bowling-line[data-line-id="${url[1]}"]`))
         });
     </script>
 }

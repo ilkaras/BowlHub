@@ -1,4 +1,5 @@
-﻿@{
+﻿@model string?
+@{
     Layout = "_Layout";
     ViewData["Title"] = "Log in"; 
 }
@@ -23,6 +24,10 @@
     		<input type="password" id="password" name="password" placeholder="password" />
     		<button type="submit">&#xf0da;</button>
     		<p>haven't an account yet? <a href="/auth/signup">sign up</a></p>
+            @if (Model != null)
+            {
+                <p class="form-error">@Model</p>
+            }
     	</form>
     </div>
 </div>

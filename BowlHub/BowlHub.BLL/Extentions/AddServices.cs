@@ -13,6 +13,7 @@ public static class AddServices
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IReservationService, ReservationService>();
+        services.AddScoped<IEmailSenderService, EmailSenderService>();
         
         services.AddAutoMapper(typeof(AppMappingProfile));
     }

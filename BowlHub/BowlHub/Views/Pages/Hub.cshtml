@@ -6,6 +6,7 @@
 @section Imports
 {
     <link rel="stylesheet" type="text/css" href="~/css/hub.css" asp-append-version="true">
+    <script src="~/js/global.js" asp-append-version="true"></script>
 }
 
 @section HeaderBtns
@@ -16,6 +17,7 @@
     <a href="/auth/signup">
         <input type="button" class="button" value="Sign in"/>
     </a>
+    <input id="logoutBtn" type="button" class="button" value="Log out" onclick="userLogout()"/>
 }
 
 <h1>Select a place</h1>
@@ -47,3 +49,12 @@
         </section>
     }
 </div>
+
+@section Scripts
+{
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            checkAuthorization()
+        });
+    </script>
+}
